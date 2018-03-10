@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { addNavigationHelpers, NavigationState, StackNavigator } from 'react-navigation';
-import { createReduxBoundAddListener } from "react-navigation-redux-helpers";
+import { createReduxBoundAddListener } from 'react-navigation-redux-helpers';
 import { connect } from 'react-redux';
 import { RootState } from '../reducers';
 import { List } from './List';

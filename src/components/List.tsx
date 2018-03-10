@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
+import { FetchingActions } from '../actions';
+import { RootState } from '../reducers';
 
 export interface Props {
 
 }
 
-export class ListComponent extends Component<Props> {
+export interface DispatchProps {
+  getNewestComic: () => void;
+}
 
-  constructor(props: Props) {
+export class ListComponent extends Component<Props & DispatchProps> {
+
+  constructor(props: Props & DispatchProps) {
     super(props);
+  }
+
+  componentDidMount() {
+    this.props.getNewestComic();
   }
 
   render() {
@@ -21,4 +31,14 @@ export class ListComponent extends Component<Props> {
   }
 }
 
-export const List = connect()(ListComponent);
+const mapStateToProps = (): any => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<RootState>): DispatchProps => {
+  return {
+    getNewestComic: () => dispatch(FetchingActions.getComicRequested()),
+  };
+};
+
+export const List = connect(mapStateToProps, mapDispatchToProps)(ListComponent);
