@@ -1,22 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
+  StyleSheet,
   View,
 } from 'react-native';
+import { Provider } from 'react-redux';
+import { NavigationRoot } from './components/NavigationRoot';
+import { store } from './store';
 
-interface State {
-  showPopup: boolean;
-}
+export const App = () => (
+  <View style={styles.root}>
+    <Provider store={store}>
+      <View style={{ flex: 1 }}>
+        <NavigationRoot />
+      </View>
+    </Provider>
+  </View>
+);
 
-export class App extends Component<{}, State> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      showPopup: false,
-    };
-  }
-  render() {
-    return (
-      <View />
-    );
-  }
-}
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+});
