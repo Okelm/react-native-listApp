@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, View, ViewStyle } from 'react-native';
 import { connect, Dispatch } from 'react-redux';
-import { FetchingActions } from '../actions';
+import { FetchingActions, NavActions } from '../actions';
 import { ComicItem } from '../models/ComicItem';
 import { RootState } from '../reducers';
+import { ComicItemView } from './ComicItemView';
 
 const getComicKey: (comic: ComicItem) => string =
   (message) => message.itemNumber;
@@ -14,6 +15,7 @@ export interface StateProps {
 
 export interface DispatchProps {
   getNewestComic: () => void;
+  navigateToDetailView: (itemId: string) => () => void;
 }
 
 export class ListComponent extends Component<StateProps & DispatchProps> {
@@ -32,7 +34,10 @@ export class ListComponent extends Component<StateProps & DispatchProps> {
 
   renderItem = ({ item }: { item: ComicItem }) => {
     return (
-      <Text> {item.title} </Text>
+      <ComicItemView
+        item={item}
+        onPress={this.props.navigateToDetailView}
+      />
     );
   }
 
@@ -83,6 +88,7 @@ const mapStateToProps = (state: RootState): StateProps => {
 const mapDispatchToProps = (dispatch: Dispatch<RootState>): DispatchProps => {
   return {
     getNewestComic: () => dispatch(FetchingActions.getComicRequested()),
+    navigateToDetailView: (itemId) => () => dispatch(NavActions.navigationToDetailRequested(itemId)),
   };
 };
 
