@@ -10,9 +10,7 @@ import { store } from './store';
 export const App = () => (
   <View style={styles.root}>
     <Provider store={store}>
-      <View style={{ flex: 1 }}>
-        <NavigationRoot />
-      </View>
+      <NavigationRoot />
     </Provider>
   </View>
 );
