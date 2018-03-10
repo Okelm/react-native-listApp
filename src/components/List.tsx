@@ -7,7 +7,7 @@ import { RootState } from '../reducers';
 import { ComicItemView } from './ComicItemView';
 
 const getComicKey: (comic: ComicItem) => string =
-  (message) => message.itemNumber;
+  (message) => message.itemNumber.toString();
 
 export interface StateProps {
   comics: Array<ComicItem>;
@@ -15,7 +15,7 @@ export interface StateProps {
 
 export interface DispatchProps {
   getNewestComic: () => void;
-  navigateToDetailView: (itemId: string) => () => void;
+  navigateToDetailView: (itemId: number) => () => void;
 }
 
 export class ListComponent extends Component<StateProps & DispatchProps> {

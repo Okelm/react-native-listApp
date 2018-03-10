@@ -3,6 +3,7 @@ import { ComicState } from '../models/ComicItem';
 
 export const INITIAL_STATE: ComicState = {
   comics: [],
+  lastFetchedId: undefined,
 };
 
 export function comicsReducer(state: ComicState = INITIAL_STATE, action: ActionType): ComicState {
@@ -14,6 +15,7 @@ export function comicsReducer(state: ComicState = INITIAL_STATE, action: ActionT
           ...state.comics,
           action.comicItem,
         ],
+        lastFetchedId: action.comicItem.itemNumber,
       };
     default:
       return state;
