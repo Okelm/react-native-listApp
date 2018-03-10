@@ -1,8 +1,10 @@
 import { RootState } from '../reducers';
+import { navigationLogic } from './NavigationLogic';
 import { xdcxApiLogic } from './xdcdLogic';
 
 export const logic = [
-    ...xdcxApiLogic,
+  ...xdcxApiLogic,
+  ...navigationLogic,
 ];
 
 interface ReduxLogicParams<S, A, C> {
