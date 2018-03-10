@@ -19,10 +19,10 @@ export const ComicItemView: React.SFC<Props> = ({ item, onPress }) => (
         <Image
           resizeMode={'contain'}
           source={{uri: item.imgUrl}}
-          style={styles.smallButton}
+          style={styles.image}
           loadingIndicatorSource={comicPlaceholder}
         />
-        <Text>
+        <Text style={{flex: 1}}>
           {item.title}
         </Text>
       </View>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 4,
   },
-  smallButton: {
+  image: {
     flex: 1,
   },
   contentContainer: {

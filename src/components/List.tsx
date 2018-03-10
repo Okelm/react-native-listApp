@@ -59,7 +59,6 @@ export class ListComponent extends Component<StateProps & DispatchProps> {
           ListFooterComponent={this.renderLoadingIndicator()}
           onEndReachedThreshold={2}
           onEndReached={this.onEndReached}
-
         />
       </View>
     );
