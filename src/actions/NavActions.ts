@@ -4,9 +4,9 @@ export enum ActionKey {
 
 export type NavigationToDetailRequested = {
   type: ActionKey.NAVIGATE_TO_DETAILS_REQUESTED,
-  itemId: string;
+  itemId: number;
 };
-export function navigationToDetailRequested(itemId: string): NavigationToDetailRequested {
+export function navigationToDetailRequested(itemId: number): NavigationToDetailRequested {
   return {
     type: ActionKey.NAVIGATE_TO_DETAILS_REQUESTED,
     itemId,

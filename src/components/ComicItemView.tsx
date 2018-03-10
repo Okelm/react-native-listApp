@@ -2,9 +2,11 @@ import React from 'react';
 import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { ComicItem } from '../models/ComicItem';
 
+const comicPlaceholder = require('../../resources/images/comic_placeholder.png');
+
 interface Props {
   item: ComicItem;
-  onPress: (itemId: string) => () => void;
+  onPress: (itemId: number) => () => void;
 }
 
 export const ComicItemView: React.SFC<Props> = ({ item, onPress }) => (
@@ -17,9 +19,10 @@ export const ComicItemView: React.SFC<Props> = ({ item, onPress }) => (
         <Image
           resizeMode={'contain'}
           source={{uri: item.imgUrl}}
-          style={styles.smallButton}
+          style={styles.image}
+          loadingIndicatorSource={comicPlaceholder}
         />
-        <Text>
+        <Text style={{flex: 1}}>
           {item.title}
         </Text>
       </View>
@@ -40,7 +43,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 4,
   },
-  smallButton: {
+  image: {
     flex: 1,
   },
   contentContainer: {

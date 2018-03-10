@@ -1,9 +1,10 @@
 export interface ComicItem {
-  itemNumber: string;
+  itemNumber: number;
   title: string;
   imgUrl: string;
 }
 
 export type ComicState = {
   comics: Array<ComicItem>;
+  lastFetchedId?: number;
 };
