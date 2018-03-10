@@ -14,7 +14,7 @@ export interface StateProps {
 }
 
 export interface DispatchProps {
-  getNewestComic: () => void;
+  getMoreComics: () => void;
   navigateToDetailView: (itemId: number) => () => void;
 }
 
@@ -42,7 +42,7 @@ export class ListComponent extends Component<StateProps & DispatchProps> {
   }
 
   onEndReached = () => {
-    this.props.getNewestComic();
+    this.props.getMoreComics();
   }
 
   render() {
@@ -57,8 +57,9 @@ export class ListComponent extends Component<StateProps & DispatchProps> {
           keyExtractor={getComicKey}
           renderItem={this.renderItem}
           ListFooterComponent={this.renderLoadingIndicator()}
-          onEndReachedThreshold={0.01}
+          onEndReachedThreshold={2}
           onEndReached={this.onEndReached}
+
         />
       </View>
     );
@@ -87,7 +88,7 @@ const mapStateToProps = (state: RootState): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<RootState>): DispatchProps => {
   return {
-    getNewestComic: () => dispatch(FetchingActions.getComicRequested()),
+    getMoreComics: () => dispatch(FetchingActions.getComicRequested()),
     navigateToDetailView: (itemId) => () => dispatch(NavActions.navigationToDetailRequested(itemId)),
   };
 };
