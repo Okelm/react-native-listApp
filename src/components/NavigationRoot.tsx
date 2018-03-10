@@ -4,6 +4,7 @@ import { addNavigationHelpers, NavigationState, StackNavigator } from 'react-nav
 import { createReduxBoundAddListener } from 'react-navigation-redux-helpers';
 import { connect } from 'react-redux';
 import { RootState } from '../reducers';
+import { ComicDetail } from './ComicDetail';
 import { List } from './List';
 import { MainRoutes } from './Routes';
 
@@ -20,6 +21,9 @@ interface Props extends StateProps, DispatchProps { }
 export const RootNavigator = StackNavigator({
   [MainRoutes.LIST]: {
     screen: List,
+  },
+  [MainRoutes.DETAIL]: {
+    screen: ComicDetail,
   },
 }, {
   navigationOptions: {
