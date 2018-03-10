@@ -1,5 +1,5 @@
 export interface ComicItem {
-  itemNumber: number;
+  itemNumber: string;
   title: string;
   imgUrl: string;
 }

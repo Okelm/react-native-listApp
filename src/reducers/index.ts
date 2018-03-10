@@ -11,5 +11,5 @@ export const rootReducer = combineReducers<RootState>( {
 
 export type RootState = {
   navigation: NavigationReducerState;
-  comic: ComicState;
+  comics: ComicState;
 };
