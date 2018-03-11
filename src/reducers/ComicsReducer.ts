@@ -1,9 +1,9 @@
 import { ActionKey, ActionType } from '../actions';
 import { ComicState } from '../models/ComicItem';
 
+// To show how stashing works, the comics starts from the 1949 item, but the newest is more than 1965
 export const INITIAL_STATE: ComicState = {
   rehydrating: true,
-  newestItemId: undefined,
   isRefreshing: false,
   comicsStashed: [],
   comicsToShow: [{
@@ -42,7 +42,6 @@ export function comicsReducer(state: ComicState = INITIAL_STATE, action: ActionT
         ...state,
         comicsStashed: state.comicsToShow,
         comicsToShow: [action.item],
-        newestItemId: action.item.itemId,
         lastFetchedId: action.item.itemId,
         isRefreshing: false,
       } : {
