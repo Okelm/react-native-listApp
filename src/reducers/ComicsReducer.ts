@@ -38,7 +38,7 @@ export function comicsReducer(state: ComicState = INITIAL_STATE, action: ActionT
         isRefreshing: true,
       };
     case ActionKey.Fetch.GET_NEWEST_COMIC_SUCCEEDED:
-      const stashOldComics = state.comicsToShow.find((comic) => comic.itemId < action.item.itemId);
+      const stashOldComics = state.comicsToShow[0].itemId < action.item.itemId;
       return stashOldComics ? {
         ...state,
         comicsStashed: state.comicsToShow,
