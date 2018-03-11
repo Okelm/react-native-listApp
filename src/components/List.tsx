@@ -12,6 +12,7 @@ const getComicKey: (comic: ComicItem) => string =
 export interface StateProps {
   comics: Array<ComicItem>;
   isRefreshing: boolean;
+  rehydrating: boolean;
 }
 
 export interface DispatchProps {
@@ -48,7 +49,7 @@ export class ListComponent extends Component<StateProps & DispatchProps> {
   }
 
   render() {
-    return (
+    return this.props.comics[0] && !this.props.rehydrating ? (
       <View style={{ flex: 1 }}>
         <FlatList
           scrollEventThrottle={1}
@@ -65,7 +66,7 @@ export class ListComponent extends Component<StateProps & DispatchProps> {
           onEndReached={this.onEndReached}
         />
       </View>
-    );
+    ) : null;
   }
 }
 
@@ -85,8 +86,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: RootState): StateProps => {
   return {
-    comics: state.comics.comics,
+    comics: state.comics.comicsToShow,
     isRefreshing: state.comics.isRefreshing,
+    rehydrating: state.comics.rehydrating,
   };
 };
 

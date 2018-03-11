@@ -7,6 +7,8 @@ import { autoRehydrate, persistStore } from 'redux-persist';
 import { logic } from '../logics';
 import { rootReducer, RootState } from '../reducers';
 
+import { NavActions } from '../actions';
+
 declare let module: any;
 
 export function configureStore() {
@@ -30,7 +32,7 @@ export function configureStore() {
     storage: AsyncStorage,
   };
 
-  persistStore(store, persistConfig);
+  persistStore(store, persistConfig, () => store.dispatch(NavActions.rehydrationComplated()));
 
   if (module.hot) {
     module.hot.accept(() => {

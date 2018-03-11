@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state: RootState, { navigation: { state: { params } } }: OwnProps): StateProps => {
-  const comics = state.comics.comics;
+  const comics = state.comics.comicsToShow;
   const itemId = params && params.itemId;
   const item = comics.filter((comic) => comic.itemId === itemId)[0];
 

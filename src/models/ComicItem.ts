@@ -5,8 +5,10 @@ export interface ComicItem {
 }
 
 export type ComicState = {
+  rehydrating: boolean;
   newestItemId?: number;
   isRefreshing: boolean;
-  comics: Array<ComicItem>;
+  comicsStashed: Array<ComicItem>;
+  comicsToShow: Array<ComicItem>;
   lastFetchedId?: number;
 };
