@@ -54,6 +54,12 @@ export class ListComponent extends Component<StateProps & DispatchProps> {
     );
   }
 
+  renderSeparator = () => {
+    return (
+      <View style={{minHeight: 10}}/>
+    );
+  }
+
   onEndReached = () => {
     if (!this.isLimitReached()) {
       this.props.getMoreComics();
@@ -71,6 +77,7 @@ export class ListComponent extends Component<StateProps & DispatchProps> {
           data={this.props.comics}
           keyExtractor={getComicKey}
           renderItem={this.renderItem}
+          ItemSeparatorComponent={this.renderSeparator}
           ListFooterComponent={this.renderLoadingIndicator()}
           onRefresh={this.props.getNewestComic}
           refreshing={this.props.isRefreshing}
@@ -85,10 +92,10 @@ export class ListComponent extends Component<StateProps & DispatchProps> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 12,
   } as ViewStyle,
   contentContainer: {
-    paddingBottom: 20,
+    paddingHorizontal: 10,
+    paddingBottom: 10,
   } as ViewStyle,
   loadingIndicator: {
     height: 38,
