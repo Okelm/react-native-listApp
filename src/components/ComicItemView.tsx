@@ -10,28 +10,28 @@ interface Props {
 }
 
 export const ComicItemView: React.SFC<Props> = ({ item, onPress }) => (
-    <View style={styles.cardWithShadow}>
     <TouchableHighlight
       onPress={onPress(item.itemId)}
-      underlayColor={'#ff00ff00'}
+      underlayColor={'#ff11ff11'}
     >
-      <View style={styles.contentContainer}>
+      <View style={styles.cardWithShadow}>
         <Image
           resizeMode={'contain'}
           source={{uri: item.imgUrl}}
           style={styles.image}
           loadingIndicatorSource={comicPlaceholder}
         />
-        <Text style={{flex: 1}}>
+        <Text style={{flex: 1, textAlign: 'center'}}>
           {item.title}
         </Text>
       </View>
     </TouchableHighlight>
-  </View>
 );
 
 const styles = StyleSheet.create({
   cardWithShadow: {
+    flexDirection: 'row',
+    minHeight: 100,
     padding: 16,
     backgroundColor: 'white',
     shadowColor: 'black',
@@ -45,10 +45,5 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-  },
-  contentContainer: {
-    flexDirection: 'row',
-    minHeight: 100,
-    alignItems: 'center',
   },
 });

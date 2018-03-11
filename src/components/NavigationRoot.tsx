@@ -1,6 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
-import { addNavigationHelpers, NavigationState, StackNavigator } from 'react-navigation';
+import { BackHandler, View } from 'react-native';
+import { addNavigationHelpers, NavigationActions, NavigationState, StackNavigator } from 'react-navigation';
 import { createReduxBoundAddListener } from 'react-navigation-redux-helpers';
 import { connect } from 'react-redux';
 import { RootState } from '../reducers';
@@ -34,6 +34,19 @@ export const RootNavigator = StackNavigator({
 class NavRootComponent extends React.Component<Props, {}> {
 
   addListener = createReduxBoundAddListener('root');
+
+  componentDidMount(): void {
+    BackHandler.addEventListener('hardwareBackPress', this.onBackPressed);
+  }
+
+  componentWillUnmount(): void {
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackPressed);
+  }
+
+  onBackPressed = (): boolean => {
+    this.props.dispatch(NavigationActions.back({}));
+    return true;
+  }
 
   render() {
     return (
