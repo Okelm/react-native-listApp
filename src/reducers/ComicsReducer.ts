@@ -1,4 +1,5 @@
 import { ActionKey, ActionType } from '../actions';
+import { itemsLimit } from '../components/List';
 import { ComicState } from '../models/ComicItem';
 
 // To show how stashing works, the comics starts from the 1949 item, but the newest is more than 1965
@@ -23,7 +24,7 @@ export function comicsReducer(state: ComicState = INITIAL_STATE, action: ActionT
         comicsToShow: unstashOldComics ?
           [
             ...state.comicsToShow,
-            ...state.comicsStashed,
+            ...state.comicsStashed.slice(0, itemsLimit - state.comicsToShow.length),
           ] : [
             ...state.comicsToShow,
             action.comicItem,
