@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, View, ViewStyle } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import { connect, Dispatch } from 'react-redux';
 import { FetchingActions, NavActions } from '../actions';
 import { ComicItem } from '../models/ComicItem';
 import { RootState } from '../reducers';
 import { ComicItemView } from './ComicItemView';
 
+export const itemsLimit = 50;
+
 const getComicKey: (comic: ComicItem) => string =
-  (message) => message.itemNumber.toString();
+  (comic) => comic.itemId.toString();
 
 export interface StateProps {
   comics: Array<ComicItem>;
+  isRefreshing: boolean;
+  rehydrating: boolean;
 }
 
 export interface DispatchProps {
+  getNewestComic: () => void;
   getMoreComics: () => void;
   navigateToDetailView: (itemId: number) => () => void;
 }
@@ -24,8 +29,16 @@ export class ListComponent extends Component<StateProps & DispatchProps> {
     super(props);
   }
 
+  isLimitReached = (): boolean => this.props.comics.length >= itemsLimit;
+
   renderLoadingIndicator() {
-    return (
+    return this.isLimitReached() ? (
+      <View>
+        <Text style={styles.limitContainer}>
+         Sky is the limit. Welcome in the sky :)
+        </Text>
+      </View>
+    ) : (
       <View style={styles.loadingIndicator}>
         <ActivityIndicator />
       </View>
@@ -42,11 +55,13 @@ export class ListComponent extends Component<StateProps & DispatchProps> {
   }
 
   onEndReached = () => {
-    this.props.getMoreComics();
+    if (!this.isLimitReached()) {
+      this.props.getMoreComics();
+    }
   }
 
   render() {
-    return (
+    return this.props.comics[0] && !this.props.rehydrating ? (
       <View style={{ flex: 1 }}>
         <FlatList
           scrollEventThrottle={1}
@@ -57,11 +72,13 @@ export class ListComponent extends Component<StateProps & DispatchProps> {
           keyExtractor={getComicKey}
           renderItem={this.renderItem}
           ListFooterComponent={this.renderLoadingIndicator()}
+          onRefresh={this.props.getNewestComic}
+          refreshing={this.props.isRefreshing}
           onEndReachedThreshold={2}
           onEndReached={this.onEndReached}
         />
       </View>
-    );
+    ) : null;
   }
 }
 
@@ -77,16 +94,23 @@ const styles = StyleSheet.create({
     height: 38,
     justifyContent: 'center',
   } as ViewStyle,
+  limitContainer: {
+    padding: 20,
+    alignSelf: 'center',
+  } as ViewStyle,
 });
 
 const mapStateToProps = (state: RootState): StateProps => {
   return {
-    comics: state.comics.comics,
+    comics: state.comics.comicsToShow,
+    isRefreshing: state.comics.isRefreshing,
+    rehydrating: state.comics.rehydrating,
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<RootState>): DispatchProps => {
   return {
+    getNewestComic: () => dispatch(FetchingActions.getNewestComicRequested()),
     getMoreComics: () => dispatch(FetchingActions.getComicRequested()),
     navigateToDetailView: (itemId) => () => dispatch(NavActions.navigationToDetailRequested(itemId)),
   };

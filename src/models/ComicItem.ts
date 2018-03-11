@@ -1,10 +1,13 @@
 export interface ComicItem {
-  itemNumber: number;
+  itemId: number;
   title: string;
   imgUrl: string;
 }
 
 export type ComicState = {
-  comics: Array<ComicItem>;
+  rehydrating: boolean;
+  isRefreshing: boolean;
+  comicsStashed: Array<ComicItem>;
+  comicsToShow: Array<ComicItem>;
   lastFetchedId?: number;
 };

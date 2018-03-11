@@ -9,6 +9,9 @@ import { getComic, getNewestComic } from './xdcdApi';
 
 const fetchComicLogic = createLogic({
   type: ActionKey.Fetch.GET_COMIC_REQUESTED,
+  cancelType: [ActionKey.Fetch.GET_NEWEST_COMIC_REQUESTED,
+    ActionKey.Fetch.GET_NEWEST_COMIC_PROCEEDING,
+    ActionKey.Fetch.GET_NEWEST_COMIC_SUCCEEDED],
   latest: true,
   process({ getState }: LogicParams<FetchingActions.GetComicRequested>,
           dispatch: Dispatch<RootState>, done: Done) {
@@ -22,6 +25,21 @@ const fetchComicLogic = createLogic({
   },
 });
 
+const fetchNewestComic = createLogic({
+  type: ActionKey.Fetch.GET_NEWEST_COMIC_REQUESTED,
+  latest: true,
+  process(_: LogicParams<FetchingActions.GetComicRequested>,
+          dispatch: Dispatch<RootState>, done: Done) {
+
+    dispatch(FetchingActions.getNewestComicProceeding());
+    getNewestComic()
+      .then((comicItem: ComicItem) => dispatch(FetchingActions.getNewestComicSucceeded(comicItem)))
+      .catch((error) => dispatch(FetchingActions.getNewestComicFailed(error)))
+      .then(() => done());
+  },
+});
+
 export const xdcxApiLogic = [
   fetchComicLogic,
+  fetchNewestComic,
 ];
