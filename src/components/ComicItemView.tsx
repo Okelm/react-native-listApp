@@ -12,7 +12,7 @@ interface Props {
 export const ComicItemView: React.SFC<Props> = ({ item, onPress }) => (
     <View style={styles.cardWithShadow}>
     <TouchableHighlight
-      onPress={onPress(item.itemNumber)}
+      onPress={onPress(item.itemId)}
       underlayColor={'#ff00ff00'}
     >
       <View style={styles.contentContainer}>

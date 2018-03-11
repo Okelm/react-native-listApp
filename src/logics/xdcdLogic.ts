@@ -22,6 +22,21 @@ const fetchComicLogic = createLogic({
   },
 });
 
+const fetchNewestComic = createLogic({
+  type: ActionKey.Fetch.GET_NEWEST_COMIC_REQUESTED,
+  latest: true,
+  process(_: LogicParams<FetchingActions.GetComicRequested>,
+          dispatch: Dispatch<RootState>, done: Done) {
+
+    dispatch(FetchingActions.getNewestComicProceeding());
+    getNewestComic()
+      .then((comicItem: ComicItem) => dispatch(FetchingActions.getNewestComicSucceeded(comicItem)))
+      .catch((error) => dispatch(FetchingActions.getNewestComicFailed(error)))
+      .then(() => done());
+  },
+});
+
 export const xdcxApiLogic = [
   fetchComicLogic,
+  fetchNewestComic,
 ];

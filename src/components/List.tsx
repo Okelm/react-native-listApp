@@ -7,13 +7,15 @@ import { RootState } from '../reducers';
 import { ComicItemView } from './ComicItemView';
 
 const getComicKey: (comic: ComicItem) => string =
-  (message) => message.itemNumber.toString();
+  (comic) => comic.itemId.toString();
 
 export interface StateProps {
   comics: Array<ComicItem>;
+  isRefreshing: boolean;
 }
 
 export interface DispatchProps {
+  getNewestComic: () => void;
   getMoreComics: () => void;
   navigateToDetailView: (itemId: number) => () => void;
 }
@@ -57,6 +59,8 @@ export class ListComponent extends Component<StateProps & DispatchProps> {
           keyExtractor={getComicKey}
           renderItem={this.renderItem}
           ListFooterComponent={this.renderLoadingIndicator()}
+          onRefresh={this.props.getNewestComic}
+          refreshing={this.props.isRefreshing}
           onEndReachedThreshold={2}
           onEndReached={this.onEndReached}
         />
@@ -82,11 +86,13 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: RootState): StateProps => {
   return {
     comics: state.comics.comics,
+    isRefreshing: state.comics.isRefreshing,
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<RootState>): DispatchProps => {
   return {
+    getNewestComic: () => dispatch(FetchingActions.getNewestComicRequested()),
     getMoreComics: () => dispatch(FetchingActions.getComicRequested()),
     navigateToDetailView: (itemId) => () => dispatch(NavActions.navigationToDetailRequested(itemId)),
   };
