@@ -1,6 +1,6 @@
 import { RootState } from '../reducers';
-import { navigationLogic } from './NavigationLogic';
 import { comicsApiLogic } from './comicsLogic';
+import { navigationLogic } from './NavigationLogic';
 
 export const logic = [
   ...comicsApiLogic,

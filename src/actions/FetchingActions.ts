@@ -8,6 +8,7 @@ export enum ActionKey {
   GET_NEWEST_COMIC_SUCCEEDED = 'COMIC/GET_NEWEST_COMIC_SUCCEEDED',
   GET_NEWEST_COMIC_FAILED = 'COMIC/GET_NEWEST_COMIC_FAILED ',
   GET_NEWEST_COMIC_PROCEEDING = 'COMIC/GET_NEWEST_COMIC_PROCEEDING',
+  GET_COMIC_FAILED_DISMISSED = 'COMIC/GET_COMIC_FAILED_DISMISSED',
 }
 
 export type GetComicRequested = {
@@ -81,10 +82,20 @@ export function getNewestComicProceeding(): GetNewestComicProceeding {
   };
 }
 
+export type GetNewestComicFailedDismissed = {
+  type: ActionKey.GET_COMIC_FAILED_DISMISSED,
+};
+export function getNewestComicFailedDismissed(): GetNewestComicFailedDismissed {
+  return {
+    type: ActionKey.GET_COMIC_FAILED_DISMISSED,
+  };
+}
+
 export type FetchingActionsType = GetComicRequested
   | GetComicSucceeded
   | GetComicFailed
   | GetNewestComicRequested
   | GetNewestComicSucceeded
   | GetNewestComicFailed
-  | GetNewestComicProceeding;
+  | GetNewestComicProceeding
+  | GetNewestComicFailedDismissed;
