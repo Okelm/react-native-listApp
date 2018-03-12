@@ -10,4 +10,5 @@ export type ComicState = {
   comicsStashed: Array<ComicItem>;
   comicsToShow: Array<ComicItem>;
   lastFetchedId?: number;
+  error?: string;
 };

@@ -1,9 +1,9 @@
 import { RootState } from '../reducers';
+import { comicsApiLogic } from './ComicsLogic';
 import { navigationLogic } from './NavigationLogic';
-import { xdcxApiLogic } from './xdcdLogic';
 
 export const logic = [
-  ...xdcxApiLogic,
+  ...comicsApiLogic,
   ...navigationLogic,
 ];
 

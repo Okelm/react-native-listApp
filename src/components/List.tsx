@@ -15,6 +15,7 @@ export interface StateProps {
   comics: Array<ComicItem>;
   isRefreshing: boolean;
   rehydrating: boolean;
+  error?: string;
 }
 
 export interface DispatchProps {
@@ -31,7 +32,17 @@ export class ListComponent extends Component<StateProps & DispatchProps> {
 
   isLimitReached = (): boolean => this.props.comics.length >= itemsLimit;
 
-  renderLoadingIndicator() {
+  shouldRenderList = (): boolean => this.props.comics[0] && !this.props.rehydrating;
+
+  renderFooter() {
+    return this.props.error ? (
+      null
+    ) : (
+      this.renderHeader()
+    );
+  }
+
+  renderHeader() {
     return this.isLimitReached() ? (
       <View>
         <Text style={styles.limitContainer}>
@@ -67,18 +78,19 @@ export class ListComponent extends Component<StateProps & DispatchProps> {
   }
 
   render() {
-    return this.props.comics[0] && !this.props.rehydrating ? (
+    const { container, contentContainer } = styles;
+    return this.shouldRenderList() ? (
       <View style={{ flex: 1 }}>
         <FlatList
           scrollEventThrottle={1}
           inverted={true}
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}
+          style={container}
+          contentContainerStyle={contentContainer}
           data={this.props.comics}
           keyExtractor={getComicKey}
           renderItem={this.renderItem}
           ItemSeparatorComponent={this.renderSeparator}
-          ListFooterComponent={this.renderLoadingIndicator()}
+          ListFooterComponent={this.renderFooter()}
           onRefresh={this.props.getNewestComic}
           refreshing={this.props.isRefreshing}
           onEndReachedThreshold={2}
@@ -112,6 +124,7 @@ const mapStateToProps = (state: RootState): StateProps => {
     comics: state.comics.comicsToShow,
     isRefreshing: state.comics.isRefreshing,
     rehydrating: state.comics.rehydrating,
+    error: state.comics.error,
   };
 };
 

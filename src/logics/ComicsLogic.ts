@@ -5,7 +5,7 @@ import { ActionKey, FetchingActions } from '../actions';
 import { ComicItem } from '../models/ComicItem';
 import { RootState } from '../reducers';
 import { LogicParams } from './';
-import { getComic, getNewestComic } from './xdcdApi';
+import { getComic, getNewestComic } from './ComicsApi';
 
 const fetchComicLogic = createLogic({
   type: ActionKey.Fetch.GET_COMIC_REQUESTED,
@@ -39,7 +39,7 @@ const fetchNewestComic = createLogic({
   },
 });
 
-export const xdcxApiLogic = [
+export const comicsApiLogic = [
   fetchComicLogic,
   fetchNewestComic,
 ];

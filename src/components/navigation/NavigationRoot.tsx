@@ -3,9 +3,9 @@ import { BackHandler, View } from 'react-native';
 import { addNavigationHelpers, NavigationActions, NavigationState, StackNavigator } from 'react-navigation';
 import { createReduxBoundAddListener } from 'react-navigation-redux-helpers';
 import { connect } from 'react-redux';
-import { RootState } from '../reducers';
-import { ComicDetail } from './ComicDetail';
-import { List } from './List';
+import { RootState } from '../../reducers/index';
+import { ComicDetail } from '../ComicDetail';
+import { List } from '../List';
 import { MainRoutes } from './Routes';
 
 interface StateProps {

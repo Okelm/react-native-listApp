@@ -21,7 +21,7 @@ export const ComicItemView: React.SFC<Props> = ({ item, onPress }) => (
           style={styles.image}
           loadingIndicatorSource={comicPlaceholder}
         />
-        <Text style={{flex: 1, textAlign: 'center'}}>
+        <Text style={styles.text}>
           {item.title}
         </Text>
       </View>
@@ -45,5 +45,9 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
+  },
+  text: {
+    flex: 1,
+    textAlign: 'center',
   },
 });

@@ -4,13 +4,18 @@ import {
   View,
 } from 'react-native';
 import { Provider } from 'react-redux';
-import { NavigationRoot } from './components/NavigationRoot';
+import { isAndroid } from './assets';
+import { InappNotification } from './components/InappNotification';
+import { NavigationRoot } from './components/navigation/NavigationRoot';
 import { store } from './store';
 
 export const App = () => (
   <View style={styles.root}>
     <Provider store={store}>
-      <NavigationRoot />
+      <View style={styles.container}>
+        <InappNotification />
+        <NavigationRoot />
+      </View>
     </Provider>
   </View>
 );
@@ -18,5 +23,9 @@ export const App = () => (
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+  },
+  container: {
+    flex: 1,
+    paddingTop: isAndroid ? 0 : 20,
   },
 });

@@ -1,6 +1,6 @@
 export enum ActionKey {
   NAVIGATE_TO_DETAILS_REQUESTED = 'NAV/NAVIGATE_TO_DETAILS_REQUESTED',
-  REHYDRATION_COMPLATED = 'NAV/REHYDRATION_COMPLATED',
+  REHYDRATION_COMPLETED = 'NAV/REHYDRATION_COMPLETED',
 }
 
 export type NavigationToDetailRequested = {
@@ -15,11 +15,11 @@ export function navigationToDetailRequested(itemId: number): NavigationToDetailR
 }
 
 export type RehydrationComplated = {
-  type: ActionKey.REHYDRATION_COMPLATED,
+  type: ActionKey.REHYDRATION_COMPLETED,
 };
 export function rehydrationComplated(): RehydrationComplated {
   return {
-    type: ActionKey.REHYDRATION_COMPLATED,
+    type: ActionKey.REHYDRATION_COMPLETED,
   };
 }
 
