@@ -1,5 +1,5 @@
 import { RootState } from '../reducers';
-import { comicsApiLogic } from './comicsLogic';
+import { comicsApiLogic } from './ComicsLogic';
 import { navigationLogic } from './NavigationLogic';
 
 export const logic = [

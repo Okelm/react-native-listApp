@@ -2,7 +2,7 @@ import { ActionKey, ActionType } from '../actions';
 import { itemsLimit } from '../components/List';
 import { ComicState } from '../models/ComicItem';
 
-// To show how stashing works, the comics starts from the 1949 item, but the newest is more than 1965
+// To show how stashing works, the comics starts from the 1949 item, but the newest stands higher or equal to 1965
 export const INITIAL_STATE: ComicState = {
   rehydrating: true,
   isRefreshing: false,

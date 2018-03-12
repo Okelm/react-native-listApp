@@ -1,6 +1,6 @@
 import { Action } from 'redux';
-import { RootNavigator } from '../components/NavigationRoot';
-import { MainRoutes } from '../components/Routes';
+import { RootNavigator } from '../components/navigation/NavigationRoot';
+import { MainRoutes } from '../components/navigation/Routes';
 import { NavigationReducerState } from '../models/Navigation';
 
 const initialState: NavigationReducerState = RootNavigator.router.getStateForAction(
