@@ -25,3 +25,4 @@ npm run ios
 - add error handling to images' download on no internet connection
 - reuse cached images to feed both list and detail view
 - pinch detail view to zoom in/out
+- test reducers, logic and UI
